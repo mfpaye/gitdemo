@@ -16,6 +16,7 @@
 # a fake number that nonetheless respects the mathematical constraint, so a database lookup 
 # is still necessary for more rigorous checks.
 # test visa card number: 4003600000000014
+#wrong number = 4123456789012
 
 #-----------------------------------------------------
 #first try of checksym
@@ -58,29 +59,25 @@ def enter_credicardnumber():
 #--------------------------------------------------
 #Check to make sure they entered numbers only
 def numbers_only(credit_card_number):
-    numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     for digit in credit_card_number:
-        if int(digit) in numbers:
+        if digit.isdigit():
             pass
         else:
-            print('You can only enter numbers. Please reenter your credit card number.')
             return False
-
     return True
 #-----------------------------------------------
 #Check that they entered a valid number
-def checkccnumbs(credit_card_number):
-    credit_card_set = [ 
-        [[15], 'American Express', '51', '52', '53', '54', '55'],
-        [[16], 'MasterCard', '34', '37'],
+def check_cc_numbs(credit_card_number):
+    credit_card_checklist = [ 
+        [[15], 'American Express', '34', '37'],
+        [[16], 'MasterCard', '51', '52', '53', '54', '55' ],
         [[13, 16], 'VISA', '4']
         ]
-    for eachitem in credit_card_set:
+    for eachitem in credit_card_checklist:
         if len(credit_card_number) in eachitem[0]:
             if credit_card_number[0] in eachitem or credit_card_number[0:2] in eachitem:
                 return f'Card Type: {eachitem[1]}'
     else:
-        print('Invalid credit card number. Please reenter your credit card number. \n')
         return False
          
 #-----------------------------------------------
@@ -104,24 +101,59 @@ def checksum2(credit_card_number):
 #-----------------------------------------------
 #compilation of the functions
 def credicardverification():
-    credit_card_number = enter_credicardnumber()
-    if numbers_only(credit_card_number):
-       result = checkccnumbs(credit_card_number)
-       if result == False: 
-        enter_credicardnumber()
-       else:
-        print()
-        if checksum2(credit_card_number):
-            return f"""
-            Valid credit card number.
-            Credit card: {credit_card_number}
-            {result} """
+    while True:
+        credit_card_number = enter_credicardnumber()
+        if numbers_only(credit_card_number):
+            result = check_cc_numbs(credit_card_number)
         else:
-            enter_credicardnumber()
+            print('Error 001: You can only enter numbers. Please reenter your credit card number.\n \n \n')
+            continue
+
+        if result == False: 
+            print('Error 002: Invalid credit card number. Please reenter your credit card number. \n \n \n')
+            continue
+        else:
+            if checksum2(credit_card_number):
+                return f"""
+                Valid credit card number.
+                Credit card: {credit_card_number}
+                {result} """
+                break
+            else:
+                print('Error 003: Your credit number is not correct. \nPlease verify and enter the correct numbers.\n \n \n')
+                continue
+      
+
 
 
 #----------------------------------------
 #Test program
+
+# 
+# American Express	378282246310005
+# American Express	371449635398431
+# American Express Corporate	378734493671000
+# Diners Club	30569309025904
+# Discover	6011111111111117
+# Discover	6011000990139424
+# JCB	3530111333300000
+# JCB	3566002020360505
+# Mastercard	2221000000000009
+# Mastercard	2223000048400011
+# Mastercard	2223016768739313
+# Mastercard	5555555555554444
+# Mastercard	5105105105105100
+# Visa	4111111111111111
+# Visa	4012888888881881
+# Visa	4222222222222
+# Note: Even though this number has a different character count than the other test numbers, it is the correct and functional number.
+# HSA / FSA	
+# Note: These cards are only supported on Chase Paymentech Salem.
+# Visa	4999991111111113 or 4999992222222229
+# Mastercard	5199999999999991 or 5299999999999990
+
+
+
 
 x = credicardverification()
 print(x)

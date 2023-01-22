@@ -11,9 +11,9 @@ def creditcardvalidation():
     # Define each credit card validation requirements
     # credit_card_numbs = str(credit_card_numbs)
     credit_card_set = [ 
-        [[15], 'American Express', 51, 52, 53, 54, 55],
-        [[16], 'MasterCard', 34, 37],
-        [[13, 16], 'VISA', 4]
+        [[15], 'American Express', '34', '37'],
+        [[16], 'MasterCard', '51', '52', '53', '54', '55' ],
+        [[13, 16], 'VISA', '4']
         ]
     
     # Make sure the number of entered number is valid using teh criteria above. 
