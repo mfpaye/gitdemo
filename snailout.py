@@ -23,16 +23,10 @@
 #take each item in the first array and add to a new list
 def first_shell(array):
     new_list = []
-    # if array[0] == []:
-    #     pass
-    # else:
-    #     first_line = array.pop(0)
-    #     for item in first_line:
-    #         new_list.append(item)
-  
     first_line = array.pop(0)
     for item in first_line:
         new_list.append(item)
+
 #take the last item from each remaining set of items.
     for line in array:
         if line == []:
@@ -40,35 +34,37 @@ def first_shell(array):
         else:
             last_item = line.pop(-1)
             new_list.append(last_item)
+#
+# Add the last line in reverse
+    if array == []:
+        pass
+    else:
+        array[-1].reverse()
+        last_line = array.pop(-1)
+        for item in last_line:
+            new_list.append(item)
 
-#Print the last line in reverse
-    array[-1].reverse()
-    last_line = array.pop(-1)
-    for item in last_line:
-        new_list.append(item)
-    print(f'new_list:{new_list} \narray:{array}')
 
 #take the first item of the remaining list, 
 # add them to a list, 
 # reverse their orders, then add them the new list.
     intermedite_list = []
-
     for line in array:
         if line == []:
             pass
         else:
             first_item_in_list = line.pop(0)
             intermedite_list.append(first_item_in_list)
-        reversed(intermedite_list)
-        for digit in intermedite_list:
-            new_list.append(digit)
+    intermedite_list.reverse()
+    for digit in intermedite_list:
+        new_list.append(digit)
     # print(f'new_list:{new_list} \narray:{array}')
 
     return new_list, array
 
 #Now repeat this process till the list is empty
 def snail_sort(array):
-    new_list =[]
+    final_new_list =[]
     for line in array:
         print(line)
     while len(array)!=0:
@@ -77,8 +73,8 @@ def snail_sort(array):
             if item == []:
                 pass
             else:
-                new_list.append(item)
-    return new_list
+                final_new_list.append(item)
+    return final_new_list
 
 
 
@@ -86,7 +82,14 @@ def snail_sort(array):
 array = [[1, 2, 4, 6], [4, 5, 6,7], [8, 9, 10,11]]
 array1 = [[],[]]
 array2 = [[1, 2, 4, 6], [4, 5, 6,7], [8, 9, 10,11], [12, 13, 14, 15]]
-x = snail_sort(array2)
+array3 = [
+    [1, 2, 3, 4, 5],
+[6, 7, 8, 9, 10],
+[11, 12, 13, 14, 15],
+[16, 17, 18, 19, 20],
+[21, 22, 23, 24, 25]
+]
+x = snail_sort(array3)
 print(x)
 
     # print(f'new_list:{new_list} \narray:{array}')
