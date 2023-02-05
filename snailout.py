@@ -63,7 +63,7 @@ def first_shell(array):
     return new_list, array
 
 #Now repeat this process till the list is empty
-def snail_sort(array):
+def snail(array):
     final_new_list =[]
     for line in array:
         print(line)
@@ -89,8 +89,77 @@ array3 = [
 [16, 17, 18, 19, 20],
 [21, 22, 23, 24, 25]
 ]
-x = snail_sort(array3)
+x = snail(array3)
 print(x)
 
     # print(f'new_list:{new_list} \narray:{array}')
 
+
+
+#######################################################################
+#######################################################################
+#######################################################################
+
+###############
+1
+###############
+### easier way to do this:
+import numpy as np
+
+def snail(array):
+    m = []
+    array = np.array(array)
+    while len(array) > 0:
+        m += array[0].tolist()
+        array = np.rot90(array[1:])
+    return m
+
+
+###############
+2
+###############
+# my implementation/explanation of the solution by foxxyz
+def snail(array):
+  if array:
+    # force to list because zip returns a list of tuples
+    top_row = list(array[0])
+    # rotate the array by switching remaining rows & columns with zip
+    # the * expands the remaining rows so they can be matched by column
+    rotated_array = zip(*array[1:])
+    # then reverse rows to make the formerly last column the next top row
+    rotated_array = rotated_array[::-1]
+    return top_row + snail(rotated_array)
+  else:
+    return []
+
+
+
+###############
+3
+###############
+def snail(array):
+    out = []
+    while len(array):
+        out += array.pop(0)
+        array = list(zip(*array))[::-1] # Rotate
+    return out
+
+
+###############
+4
+###############
+def snail(array):
+    res = []
+    while len(array) > 1:
+        res = res + array.pop(0)
+        res = res + [row.pop(-1) for row in array]
+        res = res + list(reversed(array.pop(-1)))
+        res = res + [row.pop(0) for row in array[::-1]]
+    return res if not array else res + array[0]
+
+
+
+###############
+4
+###############
+snail = lambda a: list(a[0]) + snail(zip(*a[1:])[::-1]) if a else []
