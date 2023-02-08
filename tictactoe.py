@@ -55,7 +55,16 @@ def tic_tac_toe():
                 print(' ', end="|")
             else:
                 print(an_item, end="|")
-        return('\n-----')
+        return ('\n-----')
+
+    #print the current board
+    def shorter_print(the_board):
+        print("*"*20,'\n')
+        the_board_updated = map(line_print, the_board)
+        for each_line in the_board_updated:
+            print(each_line)
+        print("*"*20)
+        return ('\n')
 
     def blocking_finding_wins(the_updated_board, player1_symbol, player2_symbol):
     #take the updated board and check each answer
@@ -124,10 +133,8 @@ def tic_tac_toe():
     import random
 
     #print the current board
-    the_lines = map(line_print, current_table[3:6])
-    for each_line in the_lines:
-        print(each_line)
-    print('\n')
+    print(shorter_print(current_table[3:6]))
+
 
     #Play the game as long as there are no winners.
     while no_winner:
@@ -160,11 +167,11 @@ def tic_tac_toe():
 
                 #Check if there is a winner
                 if player1_symbol*3 in current_table:
-                    print(f'{player1} has won the Game!\nCongratulations to {player1}.')
+                    print(f'"\n{player1} has won the Game!\nCongratulations to {player1}.')
                     no_winner = False
                 
                 elif player2_symbol*3 in current_table:
-                    print(f'{player2} has won the Game!\nCongratulations to {player2}.')
+                    print(f'"\n{player2} has won the Game!\nCongratulations to {player2}.')
                     no_winner = False
             
         #if there are no more open positions, then game is over and it is a tie.
@@ -173,10 +180,7 @@ def tic_tac_toe():
             no_winner = False
         
         #print the current board
-        the_lines = map(line_print, current_table[3:6])
-        for each_line in the_lines:
-            print(each_line)
-        print('\n')
+        print(shorter_print(current_table[3:6]))
 
         #if the game ends, ask them to play again or end the game
         # if no_winner == False:
@@ -186,12 +190,10 @@ def tic_tac_toe():
                 #Reset the board content to the start of the game
                 available_positions = list(range(1,10))
                 current_table = ['147','258','369','123', '456', '789', '159', '357']
+                # print("*"*20,'\n')
 
                 #print the current board
-                the_lines = map(line_print, current_table[3:6])
-                for each_line in the_lines:
-                    print(each_line)
-                print('\n')
+                print(shorter_print(current_table[3:6]))
 
                 no_winner = True
                 break
