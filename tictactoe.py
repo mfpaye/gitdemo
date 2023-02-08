@@ -40,10 +40,10 @@ def tic_tac_toe():
 
     #remove player's position from the board and replace it with the player's symbol
     def update_stats(current_board, players_symbol, picked_position, playable_positions):
-        #Update the table
+        #Update the available position table
         playable_positions.remove(int(picked_position))
 
-        #Update the player's own table plays so far
+        #Update the current table 
         for numb in range(8):
             current_board[numb] = current_board[numb].replace(picked_position, players_symbol)
         return current_board, playable_positions
@@ -51,7 +51,10 @@ def tic_tac_toe():
     # a function to help print each line of the board
     def line_print(a_list):
         for an_item in a_list:
-            print(an_item, end="|")
+            if an_item.isdigit():
+                print(' ', end="|")
+            else:
+                print(an_item, end="|")
         return('\n-----')
 
     def blocking_finding_wins(the_updated_board, player1_symbol, player2_symbol):
@@ -183,6 +186,13 @@ def tic_tac_toe():
                 #Reset the board content to the start of the game
                 available_positions = list(range(1,10))
                 current_table = ['147','258','369','123', '456', '789', '159', '357']
+
+                #print the current board
+                the_lines = map(line_print, current_table[3:6])
+                for each_line in the_lines:
+                    print(each_line)
+                print('\n')
+
                 no_winner = True
                 break
             elif playe_again == 'N':
