@@ -17,7 +17,7 @@ def war_game ():
                     print('ERROR 02: Invalid entry! Numbers only!')
 
 
-        #ask their names
+        #ask for their names
         def players_names(self, number_of_players):
             player1 = input('Player 1, please enter your name:\n')
             player_names =[player1]
@@ -37,14 +37,17 @@ def war_game ():
         #Create then distribute the deck
         def distribute_deck(self, player_names):
             #Make the deck
-            suits = ['H', 'S', 'D', 'C']
+            suits = [' Hearts ', ' Spades ', 'Diamonds', ' Clubs  ']
             ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
             #make the decks with hearts
             the_deck = []
             for suit in suits:
                 for digit in ranks:
-                    the_deck.append(('0'+str(digit))[-2:]+suit)
+                    if digit <10:
+                        the_deck.append(('0'+str(digit))[-2:]+suit)
+                    else:
+                        the_deck.append((str(digit))[-2:]+suit)
             
             random.shuffle(the_deck)
             
@@ -145,7 +148,7 @@ def war_game ():
             def print_the_card(player_card):
                 
                 the_card =int(player_card[:2])
-                the_suit = player_card[-1]
+                the_suit = player_card[2:]
 
 
                 deck_key = {
@@ -164,20 +167,13 @@ def war_game ():
                 14: ' Ace '}
 
 
-                suit = {
-                    'C': 'Club   ',
-                    'D': 'Diamond',
-                    'S': 'Spade  ',
-                    'H': 'Heart  '
-
-                }
 
                 print_player_card = f""" 
                 -------------------
                 |                  |
                 | {deck_key[the_card]}            |
                 |        of        |
-                | {suit[the_suit]}          |
+                | {the_suit}         |
                 |                  |
                 -------------------
                 """
@@ -242,11 +238,10 @@ def war_game ():
         #print the cards played
         the_cards.print_the_cards(cards_played)
         
-        #Get the players with the highest cards
+        #Get the players with the highest cards - AKA, the winners
         any_winners = the_cards.winning_players(cards_played)
 
         #store the played card in the risked_cards pile
-        # risked_card_holder = [].extend(cards_played.values())
         risked_card_holder = []
         for card in cards_played.values():
             risked_card_holder += [card]
@@ -267,16 +262,19 @@ def war_game ():
                     #print the size of each player's hands
                     the_cards.cards_per_hands(each_players_hand)
                 
-                #remove players with empty hands
+                ##remove players with empty hands, split in two steps 
+                # because you cannot iterate in changing dictionnary length
                 empty_handers =[]
+                #get the a list of the players with empty hands
                 for each_player, hand in each_players_hand.items():
                     if len(hand) == 0:
                         empty_handers += [each_player]
+                #remove the players with empty hands
                 for the_empty_handers in empty_handers:
                     each_players_hand.pop(the_empty_handers)
 
                 restarting = False
-                #check if only one deck has cards
+                #check if only one player has cards, then there is a game winner
                 if len(each_players_hand) == 1:
                     for the_winner in each_players_hand:
                         print('*!'*30)
