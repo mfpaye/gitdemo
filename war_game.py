@@ -211,7 +211,13 @@ def war_game ():
                 
             return 'N' not in answers
 
-
+        def print_announcements(self, annoucement):
+            print('*!'*30)
+            print('\n')
+            print(annoucement)
+            print('\n')
+            print('*!'*30)
+            print('\n')
 
     the_players = Player()
     #ask number of players
@@ -277,34 +283,18 @@ def war_game ():
                 #check if only one player has cards, then there is a game winner
                 if len(each_players_hand) == 1:
                     for the_winner in each_players_hand:
-                        print('*!'*30)
-                        print('\n')
-                        print(f'{the_winner} has won the Game!!\nCongratulations to the {the_winner}!')
-                        print('\n')
-                        print('*!'*30)
-                        print('\n')
+                        the_game.print_announcements(f'{the_winner} has won the Game!!\nCongratulations to the {the_winner}!')
+                        # print('*!'*30)
+                        # print('\n')
+                        # print(f'{the_winner} has won the Game!!\nCongratulations to the {the_winner}!')
+                        # print('\n')
+                        # print('*!'*30)
+                        # print('\n')
                     
                     #Re-create then re-distritube the deck
                     each_players_hand = the_deck.distribute_deck(name_of_players)
                     
-                
-                    #ask if they want to play again
-                    game_is_on = the_game.game_on(each_players_hand)
-                    if game_is_on:
-                        print('*'*30)
-                        print('\nThe game has been reset and is restarting!\n')
-                        print('\n')
-                        print('*'*30)
-
-                        restarting = True
-                    else:
-                        print('*'*30)
-                        print('\n')
-                        print(f'You have choosen to end the game. Thank you for playing! Come back again!\n')
-                        print('\n')
-                        print('*'*30)
-
-                        restarting = True
+                    restarting = True
                 break
                 
             else:
@@ -339,14 +329,25 @@ def war_game ():
                         risked_card_holder += [card]
             
         #Ask the players if they want to keep playing
-        if not restarting:
-            game_is_on = the_game.game_on(each_players_hand)
-            if not game_is_on:
-                print('*'*30)
-                print('\n')
-                print('\nYou have choosen to end game.\nThank you for playing!')
-                print('\n')
-                print('*'*30)
+        
+        game_is_on = the_game.game_on(each_players_hand)
+        if game_is_on:
+            if restarting:
+                the_game.print_announcements('\nThe game has been reset and is restarting!\n')
+                # print('*'*30)
+                # print('\nThe game has been reset and is restarting!\n')
+                # print('\n')
+                # print('*'*30)
+
+                restarting = False
+
+        else:
+            the_game.print_announcements(f'You have choosen to end the game. Thank you for playing! Come back again!\n')
+            # print('*'*30)
+            # print('\n')
+            # print(f'You have choosen to end the game. Thank you for playing! Come back again!\n')
+            # print('\n')
+            # print('*'*30)
             
 
 
