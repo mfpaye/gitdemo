@@ -1,8 +1,4 @@
 
-y = 'abcd'
-y = y.replace('a', 'FG')
-print(y)
-
 #  ______________________________________________________________________
 
 
@@ -26,3 +22,29 @@ print(y)
 # x = list(range(1,10))
 
 # print(x)
+
+
+
+# Write a Python program that:
+
+# asks for first name as input (e.g. "James")
+# asks for last name as input (e.g. "Bond")
+# Then prints:
+
+# "Your name is Bond, James"
+
+# Note: The last name is printed first, followed by a comma, and then the first name.
+
+x = ('heart', 'spade', 'diamond', 'club')
+for i in x:
+    print(len(i))
+
+print(int(the_full_deck[0][:2]))
+
+
+# first = input('Enter your first name:\n').lower().title()
+# last = input('Enter your last name:\n').lower().title()
+
+# print(f'Your name is {last}, {first}.')
+
+
